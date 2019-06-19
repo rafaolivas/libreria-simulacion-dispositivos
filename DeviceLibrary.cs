@@ -127,12 +127,12 @@ namespace DeviceLibrary
                 {
                     Status = DeviceStatus.Dispensing;
                     Thread.Sleep(2000);
-                    _log.Message($"Dispensed: {amount.ToString("$")}, Request: {amount.ToString("$")}, Remaing: {0.ToString("$")}", "DISPENSE");
+                    _log.Message($"Dispensed: {amount.ToString("c")}, Requested: {amount.ToString("c")}, Remaing: {0.ToString("c")}", "DISPENSE");
                     return 0;
                 }
                 else
                 {
-                    _log.Message($"Dispensed: {0.ToString("$")}, Request: {amount.ToString("$")}, Remaing: {amount.ToString("$")}", "DISPENSE");
+                    _log.Message($"Dispensed: {0.ToString("c")}, Requested: {amount.ToString("c")}, Remaing: {amount.ToString("c")}", "DISPENSE");
                     return amount;
                 }
             }
