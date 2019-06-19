@@ -40,7 +40,7 @@ namespace DeviceLibrary
             {
                 lock (_events)
                 {
-                    _log.Message($"AcceptedDocument Event Add.");
+                    _log.Message("", "ACCEPTED-EVENT-ADD");
                     _AcceptedDocument += value;
                 }
             }
@@ -48,7 +48,7 @@ namespace DeviceLibrary
             {
                 lock (_events)
                 {
-                    _log.Message($"AcceptedDocument Event Remove.");
+                    _log.Message("", "ACCEPTED-EVENT-REMOVE");
                     _AcceptedDocument -= value;
                 }
             }
@@ -63,14 +63,13 @@ namespace DeviceLibrary
         /// </summary>
         public void Open()
         {
-            _log.Message(_Status, "OPEN");
+            _log.Message("", "OPEN");
             lock (_functions)
             {
                 if (Status == DeviceStatus.Disconnected)
                 {
                     Status = DeviceStatus.Connected;
                 }
-                _log.Message(_Status, "OPEN");
             }
         }
         /// <summary>
@@ -78,14 +77,13 @@ namespace DeviceLibrary
         /// </summary>
         public void Close()
         {
-            _log.Message(_Status, "CLOSE");
+            _log.Message("", "CLOSE");
             lock (_functions)
             {
                 if (Status == DeviceStatus.Connected)
                 {
                     Status = DeviceStatus.Disconnected;
                 }
-                _log.Message(_Status, "CLOSE");
             }
         }
         /// <summary>
@@ -93,14 +91,13 @@ namespace DeviceLibrary
         /// </summary>
         public void Enable()
         {
-            _log.Message(_Status, "ENABLE");
+            _log.Message("", "ENABLE");
             lock (_functions)
             {
                 if (Status == DeviceStatus.Connected || Status == DeviceStatus.Disabled)
                 {
                     Status = DeviceStatus.Enabled;
                 }
-                _log.Message(_Status, "ENABLE");
             }
         }
         /// <summary>
@@ -108,14 +105,13 @@ namespace DeviceLibrary
         /// </summary>
         public void Disable()
         {
-            _log.Message(_Status, "DISABLE");
+            _log.Message("", "DISABLE");
             lock (_functions)
             {
                 if (Status == DeviceStatus.Connected || Status == DeviceStatus.Enabled)
                 {
                     Status = DeviceStatus.Disabled;
                 }
-                _log.Message(_Status, "DISABLE");
             }
         }
         /// <summary>
@@ -125,19 +121,18 @@ namespace DeviceLibrary
         /// <returns>The amount that could not be dispensed to the user.</returns>
         public decimal Dispense(decimal amount)
         {
-            _log.Message($"amount : [{amount}] : [{_Status}].", "[DISPENSE]");
             lock (_functions)
             {
                 if (Status == DeviceStatus.Connected || Status == DeviceStatus.Disabled)
                 {
                     Status = DeviceStatus.Dispensing;
                     Thread.Sleep(2000);
-                    _log.Message($"remaining : [0] : [{_Status}].", "[DISPENSE]");
+                    _log.Message($"Dispensed: {amount.ToString("$")}, Request: {amount.ToString("$")}, Remaing: {0.ToString("$")}", "DISPENSE");
                     return 0;
                 }
                 else
                 {
-                    _log.Message($"[{amount}] : [{_Status}].", "[DISPENSE]");
+                    _log.Message($"Dispensed: {0.ToString("$")}, Request: {amount.ToString("$")}, Remaing: {amount.ToString("$")}", "DISPENSE");
                     return amount;
                 }
             }
