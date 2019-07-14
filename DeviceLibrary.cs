@@ -146,7 +146,7 @@ namespace DeviceLibrary
             lock (_functions)
             {
                 _log.Message(document.ToString(), "DOCUMENT-ACCEPTED");
-                _AcceptedDocument?.BeginInvoke(document, null, null);
+                _AcceptedDocument?.Invoke(document);
             }
         }
     }
